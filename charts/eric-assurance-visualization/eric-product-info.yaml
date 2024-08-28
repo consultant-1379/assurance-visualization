@@ -1,0 +1,4 @@
+# # This file is explained in docs/eric-product-info.md file.
+# # The below image is used for the Network Policy within this chart, if you plan to remove the Network Policy, this image reference will not be needed
+productName: eric-assurance-visualization
+productNumber: CRX 901 373

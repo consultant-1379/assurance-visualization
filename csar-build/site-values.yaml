@@ -1,0 +1,13 @@
+global:
+  hosts:
+    aviz: "av.ericsson.com"
+  registry:
+    url: 
+    username: dummy
+    password: dummy
+  security:
+    tls:
+      enabled: false
+defaultUser:
+  username: dummy
+  password: dummy

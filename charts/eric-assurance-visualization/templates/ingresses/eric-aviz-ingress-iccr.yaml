@@ -1,0 +1,27 @@
+{{- $tls := include "eric-assurance-visualization.global-security-tls-enabled" .  -}}
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: {{ template "eric-assurance-visualization.name" . }}-aviz-ingress-iccr
+  annotations:
+    kubernetes.io/ingress.class: {{.Values.global.ingressClass | quote }}
+    {{- include "eric-assurance-visualization.helm-annotations" .| nindent 4 }}
+  labels:
+    {{- include "eric-assurance-visualization.labels" .| nindent 4 }}
+spec:
+  virtualhost:
+    fqdn: {{ required "A valid .Values.global.hosts.aviz entry required" .Values.global.hosts.aviz }}
+    tls:
+      secretName: {{ required "A valid .Values.ingress.tls.secretName entry required" .Values.ingress.tls.secretName }}
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: {{ index .Values "eric-oss-network-assurance-search-rbac-proxy" "nameOverride" }}
+          port: 9443
+          {{- if eq "true" $tls }}
+          protocol: tls
+          validation:
+            caSecret: eric-sec-sip-tls-trusted-root-cert
+            subjectName: {{ index .Values "eric-oss-network-assurance-search-rbac-proxy" "nameOverride" }}
+          {{- end }}

@@ -1,0 +1,11 @@
+modelVersion: 2.0
+
+properties:
+    # Microservice Helm Chart / Docker Image name
+  - helm-chart-docker-image-name: eric-assurance-visualization
+    # Gerrit Repo full name
+  - gerrit-repo-name: OSS/com.ericsson.oss.air/assurance-visualization
+    # Project ArtifactID
+  - project-artifact-id: assurance-visualization
+    # Image product number
+  - image-product-number: CXD90001

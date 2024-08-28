@@ -1,0 +1,66 @@
+# # Default values for eric-assurance-visualization.
+# # This is a YAML-formatted file.
+# # Declare variables to be passed into your templates.
+labels: {}
+annotations: {}
+nameOverride: ""
+
+global:
+  hosts:
+    aviz: ""
+  registry:
+    url: armdocker.rnd.ericsson.se
+    imagePullPolicy: "IfNotPresent"
+  pullSecret: "k8s-registry-secret"
+  networkPolicy:
+    enabled: true
+  ingressClass: "oss_iccr"
+  log:
+    streamingMethod: "direct"
+  security:
+    tls:
+      enabled: false
+  logShipper:
+    deployment:
+      type: "sidecar"
+
+minReadySeconds: 0
+terminationGracePeriodSeconds: 30
+topologySpreadConstraints: []
+tolerations: []
+
+service:
+  port: 80
+
+ingress:
+  tls:
+    passthrough: false
+    secretName: aviz-tls-secret
+
+stubs:
+  enabled: false
+
+eric-log-shipper:
+  enabled: true
+
+eric-oss-network-assurance-search-rbac-proxy:
+  nameOverride: eric-oss-network-assurance-search-rbac-proxy
+  config:
+    logOutput:
+    - stdout
+    oidcAuth:
+      enabled: true
+      caSecret: eric-bss-bam-oam-oidc-ca-bundle
+      clientId: AuthorizationClient
+      issuerUrl: ""
+      authnProxyLoginURL: ""
+    # NAS full service URL
+    upstream:
+      # Adding space to issuerRef parameter to set empty value to issuer.reference in final Upstream client certificate template to generate NAS client certificates using SIP-TLS trusted root CA as issuer
+      issuerRef: " "
+      url: http://eric-oss-network-assurance-search:3000
+  ingress:
+    # Disabling the RBAC Ingress and using AVIZ Ingress to access RBAC for securing NAS
+    enabled: false
+    # Even though Ingress is disbaled, ingressClass is required for RBAC Network Policy
+    ingressClass: "oss_iccr"

@@ -1,0 +1,8 @@
+-DhelmDesignRule.config.eric-oss-indexer-stub=skip
+-DhelmDesignRule.config.DR-D1121-064=skip
+-DhelmDesignRule.config.DR-D1123-113=skip
+-DhelmDesignRule.config.DR-D1123-134=disable
+-DhelmDesignRule.config.eric-bss-kube-rbac-proxy.DR-D1125-014=skip
+-DhelmDesignRule.config.eric-bss-kube-rbac-proxy.DR-D1125-018=skip
+-DhelmDesignRule.config.eric-bss-kube-rbac-proxy.DR-D1125-052=skip
+-DhelmDesignRule.config.eric-bss-kube-rbac-proxy.DR-D1125-054=skip
